@@ -1,0 +1,47 @@
+---
+title: '#274: Combined Strings'
+date: 2022-11-14
+layout: '../../layouts/SolutionLayout.astro'
+status: 'solved'
+---
+
+A prompt from [Cassidy Williams' newsletter](https://buttondown.email/cassidoo/archive/normal-is-nothing-more-than-a-cycle-on-a-washing/):
+
+Given a list of strings arr, and a max size n, return a new list where the strings (from left to right) are joined together with a space, so that each new string is less than or equal to the max size.
+
+```js
+/**
+ * combingStrings
+ * given a list of strings (rawString), and a max size (maxLength)
+ * return a new list where the strings (from ltr) are joined together
+ * with a space so that each new string is less than or equal to
+ * max size. O(N) linear where n is rawStrings.length
+ *
+ * @param rawStrings: {string[]}: array of strings to be combined
+ * @param maxLength: {number}: max combined string size.
+ * @returns combinedStrings: {string[]}: array of combined strings
+ * as per spec above.
+ */
+const combineStrings = (rawStrings, maxLength) => {
+  let currItemIdx = 0;
+  const combinedStrings = [''];
+
+  for (let i = 0; i < rawStrings.length; i++) {
+    // select the current string from rawStrings, pull it out and format it.
+    const currString = rawStrings[i];
+    let shouldPrependToken = combinedStrings[currItemIdx].length == 0;
+    let token = shouldPrependToken ? currString : ` ${currString}`;
+
+    // if, post-insert, we'll be over the maxLength, break into a new string.
+    if (combinedStrings[currItemIdx].length + token.length > maxLength) {
+      combinedStrings.push('');
+      currItemIdx += 1; // point the index at the newly pushed string
+      token = currString; // ensure the new token is formatted properly
+    }
+
+    // push the new token into the current index of combinedStrings
+    combinedStrings[currItemIdx] += token;
+  }
+  return combinedStrings;
+};
+```

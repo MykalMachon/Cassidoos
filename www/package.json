@@ -8,6 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "format": "prettier -w .",
     "astro": "astro"
   },
   "dependencies": {
@@ -16,6 +17,8 @@
     "astro": "^1.6.9"
   },
   "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.7.0",
     "sass": "^1.56.1"
   }
 }
