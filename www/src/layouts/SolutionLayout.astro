@@ -4,6 +4,8 @@ export interface Props {
 }
 
 const { title, frontmatter } = Astro.props;
+const df = new Intl.DateTimeFormat("en-CA");
+const date = df.format(new Date(frontmatter.date));
 ---
 
 <!DOCTYPE html>
@@ -20,7 +22,8 @@ const { title, frontmatter } = Astro.props;
       <a href="/">return home</a>
       <header>
         <h1>{frontmatter.title}</h1>
-        <p>{frontmatter.date} - {frontmatter.status}</p>
+        <p>{date}</p>
+        <p><span class="status" data-state={frontmatter.status}>{frontmatter.status}</span></p>
       </header>
       <slot />
     </main>
@@ -45,8 +48,24 @@ const { title, frontmatter } = Astro.props;
     font-family: system-ui, sans-serif;
     background-color: #f6f6f6;
   }
+  pre {
+    padding: 1.25em;
+    border-radius: 6px;
+  }
   code {
+    line-height: 1.2rem;
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+
+  span.status {
+    padding: 0.5em 1.0em;
+    border-radius: 20px;
+  }
+
+  span[data-state='solved'] {
+    color: #5f3dc4;
+    background: #e5dbff;
+    border: 1px solid #7950f2;
   }
 </style>
